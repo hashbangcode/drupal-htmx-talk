@@ -93,10 +93,14 @@ DrupalCamp England 2026
 -->
 ---
 
+# HTMX
+
+---
+
 ## What is HTMX?
 
 - JavaScript framework.
-- Gives access to ajax and CSS Transision.
+- Gives access to ajax and CSS Transisions.
 - Small - 16K (minified and gzipped).
 - Uses HTML attributes.
 - Plugins extend functionality.
@@ -130,7 +134,7 @@ Everything is powered through HTML attributes.
 For example:
 ```html
 <button 
-  hx-put="index.php" 
+  hx-get="index.php" 
   hx-target="#request-output"
 >Submit</button>
 ```
@@ -140,16 +144,17 @@ For example:
 
 ```html
 <button 
-  hx-put="index.php" 
+  hx-get="index.php" 
   hx-target="#request-output"
 >Submit</button>
 <div id="request-output"></div>
 ```
 This example will:
-- `hx-put` = Send a "put" request to the index.php path.
+- `hx-get` = Send a "get" request to the index.php path.
 - `hx-target` = Write the response in the element with the ID "request-output".
 
 <!--
+- We could also add 'hx-trigger'. The event that triggers the request. As the default is 'click' for buttons it isn't needed here.
 - What does the response look like?
 - It just needs to return HTML.
 -->
@@ -162,6 +167,25 @@ This example will:
 
 ---
 
+## Responding To The Requset
+
+Your response should be in pain HTML.
+
+We could respond with
+
+```html
+<p>Button clicked!</p>
+```
+Whish would be injected into our page like this.
+
+```html
+<div id="request-output"><p>Button clicked!</p></div>
+```
+<!--
+Let's do something more interesting.
+-->
+---
+
 ## Responder Class In PHP
 
 A simple class to respond to HTMX requests.
@@ -172,20 +196,20 @@ class Htmx {
         return isset($_SERVER['HTTP_HX_REQUEST']) && $_SERVER['HTTP_HX_REQUEST'] === 'true';
     }
 
-    public static function isPut(): bool {
-        return $_SERVER['REQUEST_METHOD'] === 'PUT';
+    public static function isGet(): bool {
+        return $_SERVER['REQUEST_METHOD'] === 'GET';
     }
 }
 ```
 
 ---
 
-## Responding To The Put Request
+## Responding To The Request
 
 We detect the hx-request header and the correct HTTP method and respond.
 
 ```php
-if (Htmx::isHtmxRequest() && Htmx::isPut()) {
+if (Htmx::isHtmxRequest() && Htmx::isGet()) {
     echo '<p>Button clicked at ' . date('r') . '.</p>';
 }
 ```
@@ -193,8 +217,58 @@ if (Htmx::isHtmxRequest() && Htmx::isPut()) {
 The div now looks like this:
 
 ```html
-<div id="request-output" class=""><p>Button clicked at Sun, 08 Feb 2026 16:00:23 +0000.</p></div>
+<div id="request-output"><p>Button clicked at Sun, 08 Feb 2026 16:00:23 +0000.</p></div>
 ```
+
+---
+
+## HTTP Verbs
+
+Different HTTP verbs are available.
+
+- `hx-get` does a "get" request.
+- `hx-post` does a "post" requset.
+- `hx-delete` does a "delete" requset
+- `hx-patch` does a "patch" requset
+- `hx-put` does a "put" requset
+
+
+---
+
+## Select
+
+Select Out Of Band
+
+---
+
+## Swap
+
+Swap Out Of Band
+
+---
+
+## Triggers
+
+```html
+<div hx-post="index.php" hx-trigger="click">0</div>
+```
+
+```html
+<div hx-post="index.php" hx-trigger="once"></div>
+```
+
+```html
+<div hx-post="index.php" hx-trigger="revealed"></div>
+```
+
+```html
+<div hx-post="index.php" hx-trigger="load delay:500ms"></div>
+```
+
+```html
+<input hx-get="index.php" hx-trigger="input changed delay:1s" />
+```
+
 
 ---
 
@@ -219,7 +293,10 @@ The following will fade in a bit of content inside the `request-output` element 
     opacity: 0;
 }
 ```
-
+<!--
+When the element is first put onto the page HTMX will add the 'htmx-added' class. Which will be removed once the element is in place (or settled).
+This means we can set the htmx-added to be transparent and then fade it in to the default using the transition property.
+-->
 ---
 
 ## Configuring HTMX
@@ -248,10 +325,11 @@ htmx.config.defaultSwapStyle = 'outerHTML';
 ---
 
 examples
+- fetch the time
 - website counter
 - comment form
 - form validator
-- 
+- infinite scroll
 
 ---
 
@@ -265,7 +343,7 @@ The standard usage of HTMX in Drupal is to use the `data-hx-' prefix for attribu
 Eg: 
 ```html
 <button 
-  data-hx-put="index.php" 
+  data-hx-get="index.php" 
   data-hx-target="#request-output"
 >Submit</button>
 <div id="request-output"></div>
@@ -273,11 +351,37 @@ Eg:
 
 ---
 
-libraries
+## Drupal Libraries
+
+- `core/htmx` - The core HTMX library.
+- `core/drupal.htmx` - Additional scripts for Drupal.
 
 ---
 
+## Drupal Integration
+
+- The `Htmx` class.
+  - Wrapper around the Htmx libraries and attribute injection.
+
+<!--
+Of couse, there is technically nothing to stop you from just including the HTMX library and adding the attributes to your HTML.
+The Htmx class just facilitates this.
+-->
+---
+
+##
+
 use attributes in the same way
+
+---
+
+## The Htmx Class
+
+
+
+---
+
+## HTMX Trait
 
 ---
 
@@ -287,6 +391,7 @@ HTMX Routes
 
 examples
 - load a page via htmx
+- cascading date select with HTMX
 - block config forms
 
 ---
@@ -322,16 +427,14 @@ examples
 
 # Resources
 
-- [Storybook](https://storybook.js.org/)
-- [Storybook Module](https://www.drupal.org/project/storybook)
-- [Drupal Documentation on SDC](https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components)
-- [Drupal 11: Using Storybook To Preview Single Directory Components](https://www.hashbangcode.com/article/drupal-11-using-storybook-preview-single-directory-components)
+- [htmx.org](https://htmx.org/)
+- [HTMX Labs](https://htmxlabs.com/)
 
 ---
 
 ## Questions?
 
-- Slides: https://github.com/hashbangcode/drupal-storybook-talk
+- Slides: https://github.com/hashbangcode/drupal-htmx-talk
 
 ![bg h:50% right:40%](../src/assets/images/qr_slides.png)
 
@@ -339,6 +442,6 @@ examples
 
 ## Thanks!
 
-- Slides: https://github.com/hashbangcode/drupal-storybook-talk
+- Slides: https://github.com/hashbangcode/drupal-htmx-talk
 
 ![bg h:50% right:40%](../src/assets/images/qr_slides.png)
