@@ -85,6 +85,7 @@ DrupalCamp England 2026
 
 - HTMX added to Drupal in 11.3 as a core component.
 - This is the new standard for ajax requests.
+- More on that later!
 <!--
 - Technically, it's been in Drupal since 11.2, but only as experimental.
 - First I'm going to introduce you to HTMX.
@@ -111,12 +112,12 @@ Everything is powered through HTML attributes.
 -->
 ---
 
-## Adding HTMX
+## Installing HTMX
 
-- Download and include the JavaScript file.
+- Download and include the single JavaScript file.
 
 ```html
-<script src="js/htmx.min.js"></script>
+<script src="htmx.min.js"></script>
 ```
 
 - There are CDN options available.
@@ -162,7 +163,7 @@ This example will:
 
 ## HTMX Requests
 
-- All requests from HTMX will have the 'hx-request' header.
+- All requests from HTMX will have the `hx-request` header.
 - Certain attributes will add further headers to the request.
 
 ---
@@ -224,7 +225,7 @@ The div now looks like this:
 
 ## HTTP Verbs
 
-Different HTTP verbs are available.
+Different HTTP verbs are available through attributes.
 
 - `hx-get` does a "get" request.
 - `hx-post` does a "post" requset.
@@ -232,29 +233,40 @@ Different HTTP verbs are available.
 - `hx-patch` does a "patch" requset
 - `hx-put` does a "put" requset
 
-
 ---
 
-## Select
+## hx-target
 
-Select Out Of Band
-
----
-
-## Swap
-
-Swap Out Of Band
-
----
-
-## Triggers
+- The target element to be swapped.
 
 ```html
-<div hx-post="index.php" hx-trigger="click">0</div>
+<button hx-get="index.php" hx-target="#request-output">Submit</button>
+<div id="request-output"></div>
+```
+
+---
+
+## hx-trigger
+
+- Defines the action that will trigger the request.
+
+```html
+<div hx-post="index.php" hx-trigger="click">Click me</div>
+```
+
+- Can be left out for elements that have default triggers.
+  - Eg. `button` elements automatically have a `click` trigger.
+
+---
+
+## hx-trigger Examples
+
+```html
+<div hx-post="index.php" hx-trigger="click">Click me</div>
 ```
 
 ```html
-<div hx-post="index.php" hx-trigger="once"></div>
+<div hx-post="index.php" hx-trigger="click once">Click me</div>
 ```
 
 ```html
@@ -269,8 +281,111 @@ Swap Out Of Band
 <input hx-get="index.php" hx-trigger="input changed delay:1s" />
 ```
 
+---
+
+## hx-select
+
+- Select content to swap with the target element from the response.
+
+HTMX:
+```html
+<button hx-get="index.php" hx-select="#response" hx-swap="outerHTML">Click</button>
+```
+
+Response:
+```php
+if (Htmx::isHtmxRequest() && Htmx::isGet()) {
+    echo '<p id="response">Button clicked at ' . date('r') . '.</p>
+<p>Some extra content that won\'t get displayed.</p>';
+}
+```
 
 ---
+<!-- _footer: "" -->
+## hx-select-oob
+
+- Select Out Of Band
+- Do more than one thing in the request.
+
+HTMX:
+```html
+<button hx-get="index.php" hx-select-oob="#request-output">Send Request</button>
+<div id="request-output"></div>
+```
+
+Response:
+```php
+if (Htmx::isHtmxRequest() && Htmx::isGet()) {
+  echo 'Request Sent';
+  echo '<div id="request-output">Button clicked at ' . date('r') . '.</div>';
+}
+
+```
+---
+<!-- _footer: "" -->
+## hx-select-oob
+
+- You can comma separate this property to do multiple things.
+
+HTMX:
+```html
+<button hx-get="index.php" hx-select-oob="#div1,#div2">Send Request</button>
+<div id="div1"></div> <div id="div2"></div>
+```
+Response:
+```php
+if (Htmx::isHtmxRequest() && Htmx::isGet()) {
+  echo 'Request Sent';
+  echo '<div id="div1">Button clicked at:</div>';
+  echo '<div id="div2">' . date('r') . '.</div>';
+}
+
+```
+<!--
+- Be careful, anything not part of the hx-select-oob attribute will be injected into the triggering element.
+-->
+---
+
+## hx-swap
+
+- Controls how an element will be swapped into the page.
+- Defaults to `innerHTML` - replace the HTML contents.
+
+  - `outerHTML` - Replace the element.
+  - `textContent` - Replace contents without parsing as HTML.
+
+---
+## hx-swap
+
+- `beforebegin`, `afterbegin`, `beforeend`, `afterend` - Place the response before or after the element and its children.
+- `delete` - Delete the target element from the page.
+- `none` - Do nothing with the response (but still process out of band items).
+
+---
+<!-- _footer: "" -->
+
+## hx-swap-oob
+
+- Swap Out Of Band
+- Similar to hx-select-oob but the response is responsible.
+
+HTMX:
+```html
+<button hx-get="index.php" hx-swap="none">Send Request</button>
+<div id="div1">...</div>
+```
+Response:
+```php
+if (Htmx::isHtmxRequest() && Htmx::isGet()) {
+    echo '<div id="div1" hx-swap-oob="true">Button clicked at ' . date('r') . '.</div>';
+}
+```
+<!--
+- The hx-swap="none" means that the triggering element won't be altered.
+- We can piggy back other things that we want to inject into the page in the response.
+-->
+---
+
 
 ## CSS Transitions
 
@@ -333,10 +448,17 @@ examples
 
 ---
 
-# HTMX in drupal
+# HTMX In Drupal
 
 ---
-## HTMX in drupal
+
+## HTMX In Drupal
+
+- 
+
+---
+
+## HTMX in Drupal
 
 The standard usage of HTMX in Drupal is to use the `data-hx-' prefix for attributes.
 
@@ -355,13 +477,18 @@ Eg:
 
 - `core/htmx` - The core HTMX library.
 - `core/drupal.htmx` - Additional scripts for Drupal.
-
+<!--
+drupal.htmx includes 
+- htmx-utils.js
+- htmx-assets.js
+- htmx-behaviors.js
+-->
 ---
 
 ## Drupal Integration
 
-- The `Htmx` class.
-  - Wrapper around the Htmx libraries and attribute injection.
+- The `\Drupal\Core\Htmx` class is used to 
+- Wrapper around the Htmx libraries and attribute injection.
 
 <!--
 Of couse, there is technically nothing to stop you from just including the HTMX library and adding the attributes to your HTML.
@@ -369,23 +496,55 @@ The Htmx class just facilitates this.
 -->
 ---
 
-##
-
-use attributes in the same way
-
----
-
 ## The Htmx Class
 
 
+```php
+$htmx = new Htmx();
+```
+
+---
+
+## HTMX Drupal Response
+
+Drupal has the ability to respond to a HTMX response with HTML.
+
+This uses the 'Drupal\Core\Render\MainContent\HtmxRenderer` .
+
+Renders the render array as a little HTML document.
+
+---
+
+## HTMX Drupal Response
+
+HtmxRenderer is invoked by 
+- `_wrapper_format=drupal_htmx` as a query on the incoming request
+- The `_htmx_route=true` on the route reponding to the request.
 
 ---
 
 ## HTMX Trait
 
+- `\Drupal\Core\Htmx\HtmxRequestInfoTrait` is used to assist in responding to Htmx requests.
+- Detect the request.
+- Inspect what headers are attached to the request.
+
 ---
 
-HTMX Routes
+
+
+---
+
+## HTMX With Controllers
+
+---
+
+## HTMX With Forms
+
+- The trait 'HtmxRequestInfoTrait` is part of the FormBase class.
+
+- The most important thing to remember with forms is that you get the entire form back in the response, so you need to pull out what you want with a hx-select attribute.
+- Also, forms need to be consistent. You can't just throw elements into the form as it the elements need to exist for the form to build and submit correctly.
 
 ---
 
@@ -427,8 +586,9 @@ examples
 
 # Resources
 
-- [htmx.org](https://htmx.org/)
-- [HTMX Labs](https://htmxlabs.com/)
+- [htmx.org](https://htmx.org/) - https://htmx.org
+- [HTMX Labs](https://htmxlabs.com/) - https://htmxlabs.com
+- [HTMX Module](https://www.drupal.org/project/htmx) - https://www.drupal.org/project/htmx
 
 ---
 
