@@ -180,7 +180,7 @@ This example will:
 
 ## Responding To The Requset
 
-Your response should be in pain HTML.
+Your response should be in plain HTML.
 
 We could respond to the previous request with:
 
@@ -568,7 +568,7 @@ Content
 
 ## Htmx Class
 
-- The HTMX class can also be used with a different syntax.
+- The Htmx class can also be used with a different syntax.
 
 ```php
 (new Htmx())
@@ -584,7 +584,7 @@ Content
 
 - Drupal has the ability to respond to a HTMX response with HTML.
 - This uses the class `Drupal\Core\Render\MainContent\HtmxRenderer`.
-- Renders the render array as a little HTML document and sends this upstream.
+- Renders a little HTML document and sends this upstream.
 
 ---
 
@@ -603,10 +603,12 @@ HtmxRenderer is invoked by:
 ## HTMX With Controllers
 
 - Think about your approach.
-  - Do you have two actions in your controller or one action that serve normal and one for HTMX requests?
-- Two actions means you need to tag one route with the route option `_htmx_route: TRUE`.
-- One route means you need to add some code to your controller footprint to react to HTMX requests.
+  - One route: with logic to separate out the HTMX response.
+  - Two routes: one marked with `_htmx_route: TRUE`.
 
+<!--
+- Do you have two actions in your controller or one action that serve normal and one for HTMX requests?
+-->
 ---
 
 ## HTMX With Controllers
@@ -648,6 +650,7 @@ class MyController extends ControllerBase {
 ```
 <!--
 This uses constructor property promotion and auto-wiring to inject the request stack into the controller class.
+The service is called "request_stack".
 -->
 
 ---
@@ -657,14 +660,14 @@ This uses constructor property promotion and auto-wiring to inject the request s
 Then, in your action:
 
 ```php
-  public function action() {
-    if ($this->isHtmxRequest()) {
-      // Respond to HTMX request.
-    }
-  
-    // Respond to normal controller action.
-    // Generate markup to set up the HTMX request.
+public function action() {
+  if ($this->isHtmxRequest()) {
+    // Respond to HTMX request.
   }
+
+  // Respond to normal controller action.
+  // Generate markup to set up the HTMX request.
+}
 ```
 
 ---
@@ -672,13 +675,28 @@ Then, in your action:
 # HTMX With Forms
 
 ---
-<!-- _footer: "" -->
+
 ## HTMX With Forms
 
-- The trait `HtmxRequestInfoTrait` is part of the FormBase class.
-- Important!
-  - The HTMX response in Forms is the entire form, so you _need_ add a `hx-select` (or similar) to pick out the relevnat part of the response.
-  - Also, forms need to be consistent. You can't just throw elements into the form markup as the elements need to exist in the form build.
+- The trait `HtmxRequestInfoTrait` is part of the `FormBase` class.
+- The `request_stack` service is also part of the form.
+
+```php
+if () {
+  // Respond to HTMX request.
+}
+```
+<!--
+- There's no need to include the request object in the form.
+-->
+---
+
+## HTMX With Forms
+
+- The HTMX response from forms is the entire form, so you _need_ to add a `hx-select` (or similar) to pick out the relevnat part of the response.
+
+- Also, forms need to be consistent. You can't just throw elements into the form markup as the elements need to exist in the form build.
+
 <!--
 If the elemnts don't exist in the form build they won't be part of the submit process.
 Also, use post requests for HTMX in forms.
@@ -688,7 +706,7 @@ Also, use post requests for HTMX in forms.
 
 ## HTMX With Forms
 
-Forms in the same way as constructors, you just need to decorate the elements in question.
+- Forms in the same way as constructors, you just need to decorate the elements in question.
 
 ```php
 (new Htmx())
