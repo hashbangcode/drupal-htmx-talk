@@ -681,11 +681,6 @@ public function action() {
 - The trait `HtmxRequestInfoTrait` is part of the `FormBase` class.
 - The `request_stack` service is also part of the form.
 
-```php
-if () {
-  // Respond to HTMX request.
-}
-```
 <!--
 - There's no need to include the request object in the form.
 -->
@@ -745,6 +740,7 @@ Also, use post requests for HTMX in forms.
 
 # Resources
 
+- #htmx on Drupal Slack.
 - [htmx.org](https://htmx.org/) - https://htmx.org
 - [HTMX Labs](https://htmxlabs.com/) - https://htmxlabs.com
 
@@ -752,7 +748,7 @@ Also, use post requests for HTMX in forms.
 
 ## Questions?
 
-- Slides: https://github.com/hashbangcode/drupal-htmx-talk
+- Slides: https://bit.ly/4tFKUBK
 
 ![bg h:50% right:30%](../src/assets/images/qr_slides.png)
 
@@ -760,6 +756,6 @@ Also, use post requests for HTMX in forms.
 
 ## Thanks!
 
-- Slides: https://github.com/hashbangcode/drupal-htmx-talk
+- Slides: https://bit.ly/4tFKUBK
 
 ![bg h:50% right:30%](../src/assets/images/qr_slides.png)
