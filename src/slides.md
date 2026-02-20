@@ -41,17 +41,17 @@ marp: true
 
 # Using HTMX To Make Interactive Elements In Drupal
 
-DrupalCamp England 2026
+#### DrupalCamp England 2026
 
 <!-- Speaker notes will appear here. -->
 
 ---
 
 # Philip Norton
-- Developer at Code Enigma
+- Developer at <strong>Code Enigma</strong>
 - Involved with Drupal for 20 years
 - Owner of `#! code` (www.hashbangcode.com)
-![bg h:90% right:40%](../src/assets/images/lily58.png)
+![bg h:90% right:43%](../src/assets/images/lily58.png)
 
 <!--
 - Doing Drupal for 15+ years.
@@ -437,6 +437,7 @@ This means we can set the htmx-added to be transparent and then fade it in to th
 -->
 
 ---
+<!-- _footer: "" -->
 ## Configuring HTMX
 - It is possible to configure HTMX via a number of settings.
 
@@ -678,8 +679,51 @@ public function action() {
 
 ## HTMX With Forms
 
-- The trait `HtmxRequestInfoTrait` is part of the `FormBase` class.
-- The `request_stack` service is also part of the form.
+- Forms work in much the same way as constructors.
+- You need to decorate the elements inside the `buildForm()` method.
+- There is no need to create callback functions, you pull the form elements out of the response.
+
+---
+<!-- _footer: "" -->
+## HTMX With Forms
+
+Decorate the form elements using the Htmx class.
+
+```php
+public function buildForm(array $form, FormStateInterface $form_state) {
+  $form['text'] = [
+    '#type' => 'textfield',
+    '#title' => $this->t('Text'),
+  ];
+
+  (new Htmx())
+    ->post()
+    ->target('*:has(>input[name="text"])')
+    ->select('*:has(>input[name="text"])')
+    ->trigger('keyup delay:1s')
+    ->applyTo($form['text']);
+
+  return $form;
+}
+```
+<!--
+- This decorates the form element with the HTMX elements.
+-->
+---
+
+## HTMX With Forms
+
+- `HtmxRequestInfoTrait` is part of the `FormBase` class.
+- The `request_stack` service is also part of the form so there is no need to inject this.
+
+```php
+public function buildForm(array $form, FormStateInterface $form_state) {
+    if ($this->isHtmxRequest()) {
+      // React to HTMX request.
+    }
+    // Rest of the form.
+}
+```
 
 <!--
 - There's no need to include the request object in the form.
@@ -690,29 +734,14 @@ public function action() {
 
 - The HTMX response from forms is the entire form, so you _need_ to add a `hx-select` (or similar) to pick out the relevnat part of the response.
 
-- Also, forms need to be consistent. You can't just throw elements into the form markup as the elements need to exist in the form build.
+- Forms need to be consistent. You can't just throw elements into the form markup as the elements need to exist in the form build.
 
 <!--
+Think about what would happen if you created the form from scratch.
+Form intput parameters can alter the .
 If the elemnts don't exist in the form build they won't be part of the submit process.
 Also, use post requests for HTMX in forms.
 -->
-
----
-
-## HTMX With Forms
-
-- Forms in the same way as constructors, you just need to decorate the elements in question.
-
-```php
-(new Htmx())
-  ->post()
-  ->target('*:has(>input[name="email"])')
-  ->select('*:has(>input[name="email"])')
-  ->trigger('keyup delay:1s')
-  ->applyTo($form['email']);
-```
-
-- This decorates the form element with the HTMX elements.
 
 ---
 
