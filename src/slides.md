@@ -34,6 +34,9 @@ style: |
     width: 50%;
     float: right;
   }
+  code {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
 footer: "Philip Norton [hashbangcode.com](https://www.hashbangcode.com) [fosstodon.org@hashbangcode](https://fosstodon.org/@hashbangcode) [fosstodon.org@philipnorton42](https://fosstodon.org/@philipnorton42)"
 marp: true
 
@@ -85,7 +88,7 @@ marp: true
 
 ## HTMX In Drupal
 
-- HTMX added to Drupal in 11.3 as a core component.
+- HTMX was added to Drupal in 11.3 as a core component.
 - This is the new standard for ajax requests.
 - All existing ajax features will be re-written in HTMX.
 
@@ -101,7 +104,7 @@ marp: true
 
 ---
 
-## What is HTMX?
+## What Is HTMX?
 
 - JavaScript framework.
 - Allows ajax calls and CSS Transitions _without writing JavaScript code_.
@@ -115,9 +118,9 @@ Everything is powered through HTML attributes.
 -->
 ---
 
-## What is HTMX?
+## What Is HTMX?
 
-- Behaviour is added to HTML attibutes.
+- Behaviour is added to HTML attributes.
 - Any element can issue a web request.
 - All responses should be in HTML.
 <!--
@@ -241,10 +244,10 @@ The div now looks like this:
 Different HTTP verbs are available through attributes.
 
 - `hx-get` does a "get" request.
-- `hx-post` does a "post" requset.
-- `hx-delete` does a "delete" requset
-- `hx-patch` does a "patch" requset
-- `hx-put` does a "put" requset
+- `hx-post` does a "post" request.
+- `hx-delete` does a "delete" request.
+- `hx-patch` does a "patch" request.
+- `hx-put` does a "put" request.
 
 ---
 
@@ -315,10 +318,11 @@ if (Htmx::isHtmxRequest() && Htmx::isGet()) {
 ```
 
 ---
+
 <!-- _footer: "" -->
 ## hx-select-oob
 
-Select an "Out Of Band" element to also target in the response.
+Select an "out of band" element to also target in the response.
 
 HTMX:
 ```html
@@ -390,7 +394,7 @@ Be careful, anything not part of the hx-select-oob attribute will be injected in
 
 ## hx-swap-oob
 
-Swap an "Out Of Band" element. Similar to `hx-select-oob` but the response tells HTMX what to swap.
+Swap an "out of band" element. Similar to `hx-select-oob` but the response tells HTMX what to swap.
 
 HTMX:
 ```html
@@ -605,7 +609,7 @@ HtmxRenderer is invoked by:
 
 - Think about your approach.
   - One route: with logic to separate out the HTMX response.
-  - Two routes: one marked with `_htmx_route: TRUE`.
+  - Two routes: one for rendering the page, one marked with `_htmx_route: TRUE` for the HTMX response.
 
 <!--
 - Do you have two actions in your controller or one action that serve normal and one for HTMX requests?
@@ -732,7 +736,7 @@ public function buildForm(array $form, FormStateInterface $form_state) {
 
 ## HTMX With Forms
 
-- The HTMX response from forms is the entire form, so you _need_ to add a `hx-select` (or similar) to pick out the relevnat part of the response.
+- The HTMX response from forms is the entire form, so you _need_ to add a `hx-select` (or similar) to pick out the relevant part of the response.
 
 - Forms need to be consistent. You can't just throw elements into the form markup as the elements need to exist in the form build.
 
