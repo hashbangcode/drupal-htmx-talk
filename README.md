@@ -1,49 +1,21 @@
-# marp-talk-template
-A talk template that uses Marp CLI
+# Using HTMX To Make Interactive Elements In Drupal
 
-## Install
+A talk about HTMX, understanding how HTMX can be used, and then using HTMX inside of Drupal 11.3.0+.
 
-1 Clone the repo 
-```bash
-$ git clone git@github.com:pfwd/talk-template.git
-`````
+Originally given at DrupalCamp England 2026.
 
-2 Install dependencies
+## Slides
 
-```bash
-$ npm install
-```
-Update `src/slides.md` with content.  
-Add images to `src/assets/images/`.
+You can view the slides in a number of ways:
 
-## Build slide deck
+- HTML (download this repo open the file `dist/slides.html`)
+- [PDF](https://github.com/hashbangcode/drupal-htmx-talk/blob/main/dist/slides.pdf)
+- [PPTX](https://github.com/hashbangcode/drupal-htmx-talk/blob/main/dist/slides.pptx)
 
-Use `npm run` to see all available commands.
+## Resources
 
-### Build HTML from slides
-
-```bash
-$ npm run build:html
-```
-
-### Watch HTML from slides
-
-```bash
-$ npm run watch:html
-```
-
-### Build PDF from slides
-
-```bash
-$ npm run build:pdf
-```
-
-### Build PPT from slides
-
-```bash
-$ npm run build:pp
-```
-
-## Thanks
-
-Many thanks to [Peter Fisher](https://twitter.com/pfwd) for the inital [Marp talk template](https://github.com/pfwd/talk-template).
+- [HTMX examples using PHP as a backend](https://github.com/hashbangcode/htmx-php-examples/)
+- [A Drupal module showing how to use HTMX in Drupal](https://github.com/hashbangcode/drupal_htmx_examples)
+- [A Look At HTMX With PHP](https://www.hashbangcode.com/article/look-htmx-php)
+- [HTMX.org](https://htmx.org/)
+- [HTMX Labs](https://htmxlabs.com)
