@@ -275,15 +275,19 @@ Defines the action that will trigger the request.
 - Eg. `<button>` elements automatically have a `click` trigger.
 
 ---
-
+<!-- _footer: "" -->
 ## hx-trigger Examples
 
 ```html
-<div hx-post="index.php" hx-trigger="click">Click me</div>
+<div hx-post="index.php" hx-trigger="click">Click</div>
 ```
 
 ```html
-<div hx-post="index.php" hx-trigger="click once">Click me</div>
+<div hx-post="index.php" hx-trigger="click once">Click</div>
+```
+
+```html
+<div hx-post="index.php" hx-trigger="load, click">Load & Click</div>
 ```
 
 ```html
@@ -531,7 +535,7 @@ The Htmx class just facilitates this.
 -->
 ---
 <!-- _footer: "" -->
-## Htmx Class
+## The Htmx Class
 
 - Has a number of methods that set up attributes.
 
@@ -571,7 +575,7 @@ Content
 
 ---
 
-## Htmx Class
+## The Htmx Class
 
 - The Htmx class can also be used with a different syntax.
 
@@ -594,8 +598,9 @@ Content
 ---
 
 ## HTMX Drupal Response
+You can respond with using the `HtmxRenderer` service, but it is often easier to invoke it.
 
-HtmxRenderer is invoked by:
+`HtmxRenderer` is invoked by:
 - `_wrapper_format=drupal_htmx` as a query on the incoming request.
 - The `_htmx_route=true` on the route reponding to the request.
 
@@ -636,7 +641,7 @@ mymodule_controller_action_htmx:
 <!-- _footer: "" -->
 ## HTMX With Controllers
 
-The `HtmxRequestInfoTrait` trait needs access to the request stack service.
+<p class="smaller-text">To use the <code>HtmxRequestInfoTrait</code> trait you need to add the request stack service.</p>
 
 ```php
 namespace Drupal\mymodule\Controller;
@@ -650,12 +655,15 @@ class MyController extends ControllerBase {
 
   public function __construct(protected RequestStack $requestStack) {}
 
-  public function action() {}
-}
+  protected function getRequest() {
+    return $this->requestStack->getCurrentRequest();
+  }
+
 ```
 <!--
 This uses constructor property promotion and auto-wiring to inject the request stack into the controller class.
 The service is called "request_stack".
+You also need to create a method called getRequest() in the controller as this is abstract method in the trait.
 -->
 
 ---
