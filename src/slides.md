@@ -621,23 +621,6 @@ You can respond with using the `HtmxRenderer` service, but it is often easier to
 -->
 ---
 
-## HTMX With Controllers
-
-The `__htmx_route: TRUE` is used to create the HTMX response action.
-
-```yml
-mymodule_controller_action_htmx:
-  path: '/htmx-response'
-  defaults:
-    _controller: '\Drupal\mymodule\Controller\MyModuleController::htmx'
-  requirements:
-    _permission: 'access content'
-  options:
-    _htmx_route: TRUE
-
-```
-
----
 <!-- _footer: "" -->
 ## HTMX With Controllers
 
@@ -685,6 +668,23 @@ public function action() {
 
 ---
 
+## HTMX With Controllers
+
+The `__htmx_route: TRUE` is used to create the HTMX response action.
+
+```yml
+mymodule_controller_action_htmx:
+  path: '/htmx-response'
+  defaults:
+    _controller: '\Drupal\mymodule\Controller\MyModuleController::htmx'
+  requirements:
+    _permission: 'access content'
+  options:
+    _htmx_route: TRUE
+
+```
+
+---
 # HTMX With Forms
 
 ---
