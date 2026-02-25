@@ -51,7 +51,7 @@ marp: true
 ---
 
 # Philip Norton
-- Developer at <strong>Code Enigma</strong>
+- Developer at <br><strong>Code Enigma</strong>
 - Involved with Drupal for 20 years
 - Owner of `#! code` (www.hashbangcode.com)
 ![bg h:90% right:43%](../src/assets/images/lily58.png)
