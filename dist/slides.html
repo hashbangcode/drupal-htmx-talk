@@ -3249,7 +3249,7 @@ code {
 </ul>
 <footer>Philip Norton <a href="https://www.hashbangcode.com">hashbangcode.com</a> <a href="https://fosstodon.org/@hashbangcode">fosstodon.org@hashbangcode</a> <a href="https://fosstodon.org/@philipnorton42">fosstodon.org@philipnorton42</a></footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-class="lead" data-footer="Philip Norton [hashbangcode.com](https://www.hashbangcode.com) [fosstodon.org@hashbangcode](https://fosstodon.org/@hashbangcode) [fosstodon.org@philipnorton42](https://fosstodon.org/@philipnorton42)" data-theme="uncover" data-style="img[alt~=&quot;centre&quot;] {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-class="lead" data-theme="uncover" data-style="img[alt~=&quot;centre&quot;] {
   display: block;
   margin: 0 auto;
   max-width: 80%;
@@ -3280,7 +3280,7 @@ p.centre {
 code {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
-" lang="C" class="lead" data-marpit-pagination="43" style="--paginate:true;--class:lead;--footer:Philip Norton [hashbangcode.com](https://www.hashbangcode.com) [fosstodon.org@hashbangcode](https://fosstodon.org/@hashbangcode) [fosstodon.org@philipnorton42](https://fosstodon.org/@philipnorton42);--theme:uncover;--style:img[alt~=&quot;centre&quot;] {
+" lang="C" class="lead" data-marpit-pagination="43" style="--paginate:true;--class:lead;--theme:uncover;--style:img[alt~=&quot;centre&quot;] {
   display: block;
   margin: 0 auto;
   max-width: 80%;
@@ -3313,20 +3313,25 @@ code {
 }
 ;" data-marpit-pagination-total="56" data-size="16:9">
 <h2 id="htmx-with-controllers-2">HTMX With Controllers</h2>
-<p>The <code>__htmx_route: TRUE</code> is used to create the HTMX response action.</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-yml"><span class="hljs-attr">mymodule_controller_action_htmx:</span>
-  <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/htmx-response&#x27;</span>
-  <span class="hljs-attr">defaults:</span>
-    <span class="hljs-attr">_controller:</span> <span class="hljs-string">&#x27;\Drupal\mymodule\Controller\MyModuleController::htmx&#x27;</span>
-  <span class="hljs-attr">requirements:</span>
-    <span class="hljs-attr">_permission:</span> <span class="hljs-string">&#x27;access content&#x27;</span>
-  <span class="hljs-attr">options:</span>
-    <span class="hljs-attr">_htmx_route:</span> <span class="hljs-literal">TRUE</span>
+<p class="smaller-text">To use the <code>HtmxRequestInfoTrait</code> trait you need to add the request stack service.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">Drupal</span>\<span class="hljs-title class_">mymodule</span>\<span class="hljs-title class_">Controller</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Drupal</span>\<span class="hljs-title">Core</span>\<span class="hljs-title">Controller</span>\<span class="hljs-title">ControllerBase</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Drupal</span>\<span class="hljs-title">Core</span>\<span class="hljs-title">Htmx</span>\<span class="hljs-title">HtmxRequestInfoTrait</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ControllerBase</span> </span>{
+
+  <span class="hljs-keyword">use</span> <span class="hljs-title">HtmxRequestInfoTrait</span>;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> RequestStack <span class="hljs-variable">$requestStack</span></span>) </span>{}
+
+  <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRequest</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;requestStack-&gt;<span class="hljs-title function_ invoke__">getCurrentRequest</span>();
+  }
 
 </code></pre>
-<footer>Philip Norton <a href="https://www.hashbangcode.com">hashbangcode.com</a> <a href="https://fosstodon.org/@hashbangcode">fosstodon.org@hashbangcode</a> <a href="https://fosstodon.org/@philipnorton42">fosstodon.org@philipnorton42</a></footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-class="lead" data-theme="uncover" data-style="img[alt~=&quot;centre&quot;] {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-class="lead" data-footer="Philip Norton [hashbangcode.com](https://www.hashbangcode.com) [fosstodon.org@hashbangcode](https://fosstodon.org/@hashbangcode) [fosstodon.org@philipnorton42](https://fosstodon.org/@philipnorton42)" data-theme="uncover" data-style="img[alt~=&quot;centre&quot;] {
   display: block;
   margin: 0 auto;
   max-width: 80%;
@@ -3357,7 +3362,7 @@ p.centre {
 code {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
-" lang="C" class="lead" data-marpit-pagination="44" style="--paginate:true;--class:lead;--theme:uncover;--style:img[alt~=&quot;centre&quot;] {
+" lang="C" class="lead" data-marpit-pagination="44" style="--paginate:true;--class:lead;--footer:Philip Norton [hashbangcode.com](https://www.hashbangcode.com) [fosstodon.org@hashbangcode](https://fosstodon.org/@hashbangcode) [fosstodon.org@philipnorton42](https://fosstodon.org/@philipnorton42);--theme:uncover;--style:img[alt~=&quot;centre&quot;] {
   display: block;
   margin: 0 auto;
   max-width: 80%;
@@ -3390,23 +3395,17 @@ code {
 }
 ;" data-marpit-pagination-total="56" data-size="16:9">
 <h2 id="htmx-with-controllers-3">HTMX With Controllers</h2>
-<p class="smaller-text">To use the <code>HtmxRequestInfoTrait</code> trait you need to add the request stack service.</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">Drupal</span>\<span class="hljs-title class_">mymodule</span>\<span class="hljs-title class_">Controller</span>;
-
-<span class="hljs-keyword">use</span> <span class="hljs-title">Drupal</span>\<span class="hljs-title">Core</span>\<span class="hljs-title">Controller</span>\<span class="hljs-title">ControllerBase</span>;
-<span class="hljs-keyword">use</span> <span class="hljs-title">Drupal</span>\<span class="hljs-title">Core</span>\<span class="hljs-title">Htmx</span>\<span class="hljs-title">HtmxRequestInfoTrait</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ControllerBase</span> </span>{
-
-  <span class="hljs-keyword">use</span> <span class="hljs-title">HtmxRequestInfoTrait</span>;
-
-  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> RequestStack <span class="hljs-variable">$requestStack</span></span>) </span>{}
-
-  <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRequest</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;requestStack-&gt;<span class="hljs-title function_ invoke__">getCurrentRequest</span>();
+<p>Then, in your action:</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">isHtmxRequest</span>()) {
+    <span class="hljs-comment">// Respond to HTMX request.</span>
   }
 
+  <span class="hljs-comment">// Respond to normal controller action.</span>
+  <span class="hljs-comment">// Generate markup to set up the HTMX request.</span>
+}
 </code></pre>
+<footer>Philip Norton <a href="https://www.hashbangcode.com">hashbangcode.com</a> <a href="https://fosstodon.org/@hashbangcode">fosstodon.org@hashbangcode</a> <a href="https://fosstodon.org/@philipnorton42">fosstodon.org@philipnorton42</a></footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-class="lead" data-footer="Philip Norton [hashbangcode.com](https://www.hashbangcode.com) [fosstodon.org@hashbangcode](https://fosstodon.org/@hashbangcode) [fosstodon.org@philipnorton42](https://fosstodon.org/@philipnorton42)" data-theme="uncover" data-style="img[alt~=&quot;centre&quot;] {
   display: block;
@@ -3472,15 +3471,16 @@ code {
 }
 ;" data-marpit-pagination-total="56" data-size="16:9">
 <h2 id="htmx-with-controllers-4">HTMX With Controllers</h2>
-<p>Then, in your action:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">isHtmxRequest</span>()) {
-    <span class="hljs-comment">// Respond to HTMX request.</span>
-  }
+<p>The <code>__htmx_route: TRUE</code> is used to create the HTMX response action.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-yml"><span class="hljs-attr">mymodule_controller_action_htmx:</span>
+  <span class="hljs-attr">path:</span> <span class="hljs-string">&#x27;/htmx-response&#x27;</span>
+  <span class="hljs-attr">defaults:</span>
+    <span class="hljs-attr">_controller:</span> <span class="hljs-string">&#x27;\Drupal\mymodule\Controller\MyModuleController::htmx&#x27;</span>
+  <span class="hljs-attr">requirements:</span>
+    <span class="hljs-attr">_permission:</span> <span class="hljs-string">&#x27;access content&#x27;</span>
+  <span class="hljs-attr">options:</span>
+    <span class="hljs-attr">_htmx_route:</span> <span class="hljs-literal">TRUE</span>
 
-  <span class="hljs-comment">// Respond to normal controller action.</span>
-  <span class="hljs-comment">// Generate markup to set up the HTMX request.</span>
-}
 </code></pre>
 <footer>Philip Norton <a href="https://www.hashbangcode.com">hashbangcode.com</a> <a href="https://fosstodon.org/@hashbangcode">fosstodon.org@hashbangcode</a> <a href="https://fosstodon.org/@philipnorton42">fosstodon.org@philipnorton42</a></footer>
 </section>
@@ -4486,7 +4486,7 @@ This configuration option changes how the response is handled.
 
 This changes the global swap style that HTMX uses.
 Be careful! This can change how your application operates.</p></div><div class="bespoke-marp-note" data-index="29" tabindex="0"><p>HTMX has the concept of inherited attributes. So you can make the whole form an ajax form.</p></div><div class="bespoke-marp-note" data-index="35" tabindex="0"><p>Of couse, there is technically nothing to stop you from just including the HTMX library and adding the attributes to your HTML.
-The Htmx class just facilitates this.</p></div><div class="bespoke-marp-note" data-index="41" tabindex="0"><p>- Do you have two actions in your controller or one action that serve normal and one for HTMX requests?</p></div><div class="bespoke-marp-note" data-index="43" tabindex="0"><p>This uses constructor property promotion and auto-wiring to inject the request stack into the controller class.
+The Htmx class just facilitates this.</p></div><div class="bespoke-marp-note" data-index="41" tabindex="0"><p>- Do you have two actions in your controller or one action that serve normal and one for HTMX requests?</p></div><div class="bespoke-marp-note" data-index="42" tabindex="0"><p>This uses constructor property promotion and auto-wiring to inject the request stack into the controller class.
 The service is called &quot;request_stack&quot;.
 You also need to create a method called getRequest() in the controller as this is abstract method in the trait.</p></div><div class="bespoke-marp-note" data-index="47" tabindex="0"><p>- This decorates the form element with the HTMX elements.</p></div><div class="bespoke-marp-note" data-index="48" tabindex="0"><p>- There's no need to include the request object in the form.</p></div><div class="bespoke-marp-note" data-index="49" tabindex="0"><p>Think about what would happen if you created the form from scratch.
 Form intput parameters can alter the .
