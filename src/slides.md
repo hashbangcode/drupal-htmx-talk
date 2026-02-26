@@ -317,7 +317,7 @@ HTMX:
 Response:
 ```php
 if (Htmx::isHtmxRequest() && Htmx::isGet()) {
-    echo '<p id="response">Button clicked at ' . date('r') . '.</p>';
+    echo '<p id="div1">Button clicked at ' . date('r') . '.</p>';
     echo '<p>Some extra content that won\'t get displayed.</p>';
 }
 ```
