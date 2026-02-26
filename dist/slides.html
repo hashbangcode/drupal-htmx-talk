@@ -1694,7 +1694,8 @@ code {
 <h2 id="hx-select">hx-select</h2>
 <p>Select content to swap with the target element from the response.</p>
 <p>HTMX:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">hx-get</span>=<span class="hljs-string">&quot;index.php&quot;</span> <span class="hljs-attr">hx-select</span>=<span class="hljs-string">&quot;#response&quot;</span> <span class="hljs-attr">hx-swap</span>=<span class="hljs-string">&quot;outerHTML&quot;</span>&gt;</span>Click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">hx-get</span>=<span class="hljs-string">&quot;index.php&quot;</span> <span class="hljs-attr">hx-select</span>=<span class="hljs-string">&quot;#response&quot;</span> <span class="hljs-attr">hx-target</span>=<span class="hljs-string">&quot;#div1&quot;</span>&gt;</span>Click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;div1&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>Response:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-php"><span class="hljs-keyword">if</span> (<span class="hljs-title class_">Htmx</span>::<span class="hljs-title function_ invoke__">isHtmxRequest</span>() &amp;&amp; <span class="hljs-title class_">Htmx</span>::<span class="hljs-title function_ invoke__">isGet</span>()) {
