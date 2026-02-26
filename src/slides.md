@@ -310,7 +310,8 @@ Select content to swap with the target element from the response.
 
 HTMX:
 ```html
-<button hx-get="index.php" hx-select="#response" hx-swap="outerHTML">Click</button>
+<button hx-get="index.php" hx-select="#response" hx-target="#div1">Click</button>
+<div id="div1"></div>
 ```
 
 Response:
