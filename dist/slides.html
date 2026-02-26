@@ -1699,7 +1699,7 @@ code {
 </code></pre>
 <p>Response:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-php"><span class="hljs-keyword">if</span> (<span class="hljs-title class_">Htmx</span>::<span class="hljs-title function_ invoke__">isHtmxRequest</span>() &amp;&amp; <span class="hljs-title class_">Htmx</span>::<span class="hljs-title function_ invoke__">isGet</span>()) {
-    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;p id=&quot;div1&quot;&gt;Button clicked at &#x27;</span> . <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&#x27;r&#x27;</span>) . <span class="hljs-string">&#x27;.&lt;/p&gt;&#x27;</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;p id=&quot;response&quot;&gt;Button clicked at &#x27;</span> . <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&#x27;r&#x27;</span>) . <span class="hljs-string">&#x27;.&lt;/p&gt;&#x27;</span>;
     <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;p&gt;Some extra content that won\&#x27;t get displayed.&lt;/p&gt;&#x27;</span>;
 }
 </code></pre>
