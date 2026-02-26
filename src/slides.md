@@ -691,7 +691,7 @@ mymodule_controller_action_htmx:
 
 ## HTMX With Forms
 
-- Forms work in much the same way as constructors.
+- Forms work in much the same way as Controllers.
 - You need to decorate the elements inside the `buildForm()` method.
 - There is no need to create callback functions, you pull the form elements out of the response.
 
