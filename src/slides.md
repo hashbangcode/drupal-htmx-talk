@@ -44,8 +44,6 @@ marp: true
 
 # Using HTMX To Make Interactive Elements In Drupal
 
-#### DrupalCamp England 2026
-
 <!-- Speaker notes will appear here. -->
 
 ---
@@ -128,6 +126,23 @@ No strange JSON formatted data.
 The state of the application is in the HTML, rather than kept external to it. 
 -->
 
+---
+
+# HTMX Sucks?
+
+- Crap code.
+- No build tools.
+- No Typescript.
+- No components.
+- etc. etc...
+- Reference: https://htmx.org/essays/htmx-sucks/
+
+<!--
+- To address the elephant in the room.
+- Ok, so HTMX doesn't solve all the problems, but what framework would?
+- As a pragmatist, I like HTMX as it solves a problem and means we can move away from another proprietary JSON standard that is highly complex and poorly documented.
+- Drupal is GOOD at producing HTML output.
+-->
 ---
 
 ## Installing HTMX
@@ -215,6 +230,9 @@ class Htmx {
     }
 }
 ```
+<!--
+- Generally, you shouldn't need to detect that the request is a HTMX request, but Drupal makes use of it quite a bit.
+-->
 
 ---
 
