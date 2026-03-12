@@ -620,8 +620,8 @@ Content
 You can respond with using the `HtmxRenderer` service, but it is often easier to invoke it.
 
 `HtmxRenderer` is invoked by:
-- `_wrapper_format=drupal_htmx` as a query on the incoming request.
-- The `_htmx_route=true` on the route reponding to the request.
+- `_wrapper_format=drupal_htmx` as a parameter on the path to the route.
+- The `_htmx_route=true` on the route responding to the request.
 
 ---
 
